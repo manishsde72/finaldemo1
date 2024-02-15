@@ -1,3 +1,4 @@
+
 {
     "name": "acs-quickstarter",
     "version": "1.0.0",
@@ -14,11 +15,11 @@
         "@azure/communication-common": "^2.0.0"
     },
     "devDependencies": {
-        "@azure/static-web-apps-cli": "^0.8.3",
+        "@azure/static-web-apps-cli": "^0.2.1",
         "azure-functions-core-tools": "^3.0.4425",
         "webpack": "^4.42.0",
         "webpack-cli": "^3.3.11",
-        "webpack-dev-server": "^3.10.3"
+        "webpack-dev-server": "^5.0.1"
     },
     "engines": {
         "node": ">= 6.0.0",
