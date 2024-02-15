@@ -22,7 +22,7 @@ let localMicrophones;
 let localSpeakers;
 let selectedCameraIndex = 0;
 // json ACS user object return by /api/users/{email}
-let ACSUser;
+let ACSUser="eyJhbGciOiJSUzI1NiIsImtpZCI6IjYwNUVCMzFEMzBBMjBEQkRBNTMxODU2MkM4QTM2RDFCMzIyMkE2MTkiLCJ4NXQiOiJZRjZ6SFRDaURiMmxNWVZpeUtOdEd6SWlwaGsiLCJ0eXAiOiJKV1QifQ.eyJza3lwZWlkIjoiYWNzOjYxODFlNTJiLTdhYWMtNGY5Zi04MzUwLWE1ZDNjOTQ0MGU1ZF8wMDAwMDAxZS00YmI5LWEwZjItMjhjNS01OTNhMGQwMGMwYTEiLCJzY3AiOjE3OTIsImNzaSI6IjE3MDc5ODUwNzUiLCJleHAiOjE3MDgwNzE0NzUsInJnbiI6ImNhIiwiYWNzU2NvcGUiOiJjaGF0LHZvaXAiLCJyZXNvdXJjZUlkIjoiNjE4MWU1MmItN2FhYy00ZjlmLTgzNTAtYTVkM2M5NDQwZTVkIiwicmVzb3VyY2VMb2NhdGlvbiI6ImNhbmFkYSIsImlhdCI6MTcwNzk4NTA3NX0.ET6dpl312EqqTAPAwh8p4RiNnQ5LvhhgWpMpUlQbVHWjj_24OemfFGvFpTmSZCACLptjcfi_-w4yC3AQAM5WQid2fx8k6jvMeHGo8ch_Kizska2bY8Hu26K1Rhjq9mGYsxvSKZh3dB6RFcUxQG_U0pBdw6PZ7zgsyAdpcPaXu4VeyTpDH1uI4zCQdKV9a8Y1xqLH60rHbEOUg1cH1HwbEk7DkzCyDznKeGcJLbc4qPv7zsViMfQ1mt6bDhVVFeKVAQkNxggsTr0XOv0oNQyzZCtZaexDVWgKmVIZCPzx9u2OTTdtI-GCUSULSbu-Q0Srlvw5273-ybv5rruwI0Ch7A";
 let authUserEmail = "";
 
 // UI widgets
@@ -111,7 +111,7 @@ async function getUserAcsId(userEmail) {
         catch {
             alert('Error while trying to call Azure Function API, please check your local.settings.json file contains valid ACS & CosmosDB connection strings.')
         }
-        console.log("ACS User Token: " + ACSUser.userToken);
+        console.log("ACS User Token: " + ACSUser);
         console.log("Valid until: " + ACSUser.expiresOn);
         document.querySelector('#acs_user_id').textContent = ACSUser.userId;
         document.querySelector('#user_email').textContent = authUserEmail;
@@ -198,7 +198,7 @@ async function fillDevicesSelectors() {
 async function initializeCallAgent() {
     try {
         const callClient = new CallClient(); 
-        tokenCredential = new AzureCommunicationTokenCredential(ACSUser.userToken);
+        tokenCredential = new AzureCommunicationTokenCredential(ACSUser);
 
         callAgent = await callClient.createCallAgent(tokenCredential, {displayName: 'ACS:' + authUserEmail})
         // Set up a camera device to use.
